@@ -234,3 +234,242 @@ Banana-muffin AI OSS is licensed under the GNU Affero General Public License v3.
 ---
 
 **Made with ❤️ by the OSS community**
+
+---
+
+# Banana-muffin AI OSS（日本語）
+
+管理者がアクセスを制御できるオープンソースのAI画像生成アプリケーションです。ReactとFirebaseを基盤に、Google Geminiとfal.aiを連携させて高品質な画像生成を提供します。
+
+![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)
+![React](https://img.shields.io/badge/react-19.x-blue.svg)
+![TypeScript](https://img.shields.io/badge/typescript-5.x-blue.svg)
+
+## ✨ 特長
+
+### 🎨 AI画像生成
+- **Google Gemini 2.5 Flash Image Preview** と連携し高速な生成が可能
+- **fal.ai Seedream v4** の編集およびテキスト→画像変換に対応
+- テキストプロンプトと画像入力の組み合わせをサポート
+- 1回のリクエストで1〜4枚の画像を生成
+- ネガティブプロンプトに対応
+- 1:1、4:3、16:9 など複数のアスペクト比を提供
+
+### 🔐 管理者承認システム
+- **新規ユーザー承認が必須** — 管理者が生成機能へのアクセスを制御
+- **承認状況の追跡** — ユーザーはリアルタイムで承認状況を確認可能
+- **ロールベースのアクセス制御** — Free/Pro/Admin の各ロールに応じて権限を付与
+- **管理者パネル** — 包括的なユーザー管理インターフェース
+
+### 👥 ユーザーロールと権限
+- **Free**: 管理者承認が必要で、承認されるまで生成機能は利用不可
+- **Pro**: 承認済みユーザーで生成回数に上限あり
+- **Admin**: 無制限の生成と全ユーザー管理機能を利用可能
+
+### 📚 コンテンツ管理
+- **プロンプト履歴** を自動保存
+- **お気に入りプロンプト** 機能
+- **クラウドストレージ**（Firebase Storage）を承認済みユーザー向けに提供
+- **ギャラリー閲覧** と ZIP での一括ダウンロード
+- **ストレージ割り当て** を管理
+
+### 🛠 セルフホスティング対応
+- **完全なソースコード** を公開
+- **Docker対応**（近日公開予定）
+- **環境変数ベースの設定**
+- **Firebase連携** による認証・ストレージ管理
+
+## 🚀 クイックスタート
+
+### 前提条件
+- Node.js 18 以上と npm
+- Firebase プロジェクト
+- Google Gemini API キー
+- fal.ai API キー
+
+### インストール手順
+
+1. **リポジトリをクローン**
+   ```bash
+   git clone https://github.com/your-org/banana-muffin-ai-oss.git
+   cd banana-muffin-ai-oss
+   ```
+
+2. **依存関係をインストール**
+   ```bash
+   npm install
+   ```
+
+3. **環境変数を設定**
+   ```bash
+   cp .env.example .env
+   # .env を開いて設定を編集
+   ```
+
+4. **Firebase を構成**
+   - [Firebase Console](https://console.firebase.google.com/) でプロジェクトを作成
+   - 認証（Google プロバイダー）を有効化
+   - Firestore データベースを作成
+   - Firebase Storage を有効化
+   - セキュリティルールをデプロイ:
+   ```bash
+   firebase deploy --only firestore:rules
+   firebase deploy --only storage
+   ```
+
+5. **開発サーバーを起動**
+   ```bash
+   npm run dev
+   ```
+
+### 環境変数
+
+```env
+# AI API Keys
+VITE_GEMINI_API_KEY=your_gemini_api_key
+VITE_FAL_KEY=your_fal_api_key
+
+# Firebase Configuration
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your-project
+VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+
+# Firebase Admin (for Netlify Functions)
+FIREBASE_SERVICE_ACCOUNT={"type":"service_account",...}
+```
+
+## 🏗 アーキテクチャ
+
+### 技術スタック
+- **フロントエンド**: React 19 + TypeScript + Vite
+- **スタイリング**: Tailwind CSS
+- **認証**: Firebase Auth（Google OAuth）
+- **データベース**: Firestore
+- **ストレージ**: Firebase Storage
+- **AIサービス**: Google Gemini + fal.ai
+- **デプロイ**: Netlify / セルフホスト
+
+### データベーススキーマ
+
+#### Users コレクション
+```typescript
+interface UserProfile {
+  uid: string
+  email: string
+  displayName: string
+  photoURL: string | null
+  role: 'free' | 'pro' | 'admin'
+  approvalStatus: 'pending' | 'approved' | 'rejected'
+  createdAt: Date
+  usageCount: {
+    daily: number
+    monthly: number
+    lastReset: { daily: Date; monthly: Date }
+  }
+  storageUsed: number
+  storageQuota: number
+}
+```
+
+#### その他のコレクション
+- **prompts**: ユーザーのプロンプト履歴とお気に入り
+- **images**: 保存された画像のメタデータとダウンロードURL
+
+## 👨‍💼 管理者セットアップ
+
+### 初期管理者ユーザー
+1. アプリケーションからユーザー登録
+2. Firestore コンソールでロールを `admin` に手動変更
+3. approvalStatus を `approved` に設定
+4. アプリケーションを更新して管理者パネルにアクセス
+
+### 管理者の機能
+- **ユーザー管理**: 全ユーザーの閲覧とアクセスリクエストの承認/却下
+- **ロール割り当て**: Free / Pro / Admin のロール変更
+- **利用状況の監視**: 使用統計の確認とクオータのリセット
+- **コンテンツモデレーション**: すべてのユーザー生成コンテンツへアクセス
+
+## 🔒 セキュリティ上の注意
+
+### 本番環境での運用
+⚠️ **重要**: 本アプリは開発中、クライアント側で API キーを使用します。 本番運用では以下を実施してください。
+
+1. **API プロキシを実装**: API 呼び出しをバックエンド経由にする
+2. **IP 制限**: Google Console で API キーに制限を設定
+3. **レート制限**: サーバー側でのレート制限を導入
+4. **環境のセキュリティ**: 環境変数を安全に管理
+
+### データプライバシー
+- Firebase Auth によるユーザー認証
+- すべてのユーザーデータは自身の Firebase プロジェクトに保存
+- 画像ストレージは管理者の制御下
+- AI API プロバイダー以外の第三者にデータは送信されません
+
+## 🤝 コントリビューション
+
+貢献を歓迎しています。ガイドラインは [CONTRIBUTING.md](CONTRIBUTING.md) を参照してください。
+
+### 開発ワークフロー
+1. リポジトリをフォーク
+2. フィーチャーブランチを作成
+3. テストを含めて変更を加える
+4. プルリクエストを送信
+
+### 募集している貢献領域
+- **新しい AI プロバイダー**: 追加の画像生成サービス統合
+- **UI/UX 改善**: ユーザーインターフェースと体験の向上
+- **パフォーマンス最適化**: 読み込み速度とレスポンス改善
+- **ドキュメント**: セットアップガイドと API ドキュメントの整備
+- **テスト**: テストカバレッジの強化
+
+## 📦 デプロイ
+
+### Netlify（推奨）
+1. GitHub リポジトリを Netlify と接続
+2. 環境変数を設定
+3. 自動ビルドでデプロイ
+
+### セルフホスト
+1. プロダクションビルド: `npm run build`
+2. `dist` フォルダーを任意の Web サーバーで配信
+3. サーバー上で環境変数を設定
+
+### Docker（近日公開）
+```bash
+docker build -t banana-muffin-ai-oss .
+docker run -p 3000:3000 banana-muffin-ai-oss
+```
+
+## 📄 ライセンス
+
+Banana-muffin AI OSS は GNU Affero General Public License v3.0 以降でライセンスされています。詳細は [LICENSE](LICENSE) を参照してください。コントリビューションは同一ライセンス条件でのみ受け付けます。
+
+## 🙏 謝辞
+
+- 先進的な画像生成機能を提供する **Google Gemini**
+- 高品質な画像編集と生成を提供する **fal.ai**
+- 認証とデータベースサービスを提供する **Firebase**
+- 優れたフロントエンドフレームワークを提供する **React Team**
+- ユーティリティファーストなスタイリングを可能にする **Tailwind CSS**
+
+## 🐛 課題とサポート
+
+- **バグ報告**: [GitHub Issues](https://github.com/your-org/banana-muffin-ai-oss/issues)
+- **機能要望**: [GitHub Discussions](https://github.com/your-org/banana-muffin-ai-oss/discussions)
+- **ドキュメント**: [Project Wiki](https://github.com/your-org/banana-muffin-ai-oss/wiki)
+
+## 🗺 ロードマップ
+
+- [ ] Docker コンテナ化
+- [ ] 多言語 UI 対応
+- [ ] 追加の AI プロバイダー統合
+- [ ] 高度な管理者向け分析
+- [ ] API ドキュメント
+- [ ] モバイルアプリ対応
+
+---
+
+**OSS コミュニティの情熱で作られています**
