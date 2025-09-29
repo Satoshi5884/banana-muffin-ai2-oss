@@ -3,7 +3,7 @@
   "private": false,
   "version": "0.0.0",
   "type": "module",
-  "license": "AGPL-3.0-or-later",
+  "license": "MIT",
   "homepage": "https://github.com/Satoshi5884/banana-muffin-ai2-oss",
   "repository": {
     "type": "git",

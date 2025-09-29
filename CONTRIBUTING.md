@@ -150,6 +150,6 @@ This project follows a standard Code of Conduct:
 
 ## License
 
-By contributing to this project, you agree that your contributions will be licensed under the GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later).
+By contributing to this project, you agree that your contributions will be licensed under the MIT License.
 
 Thank you for contributing to Banana-muffin AI OSS! 🎨

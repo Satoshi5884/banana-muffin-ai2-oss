@@ -109,8 +109,7 @@ export const TERMS_COPY: Record<Language, LegalPageCopy> = {
       {
         heading: '12. Open Source License',
         body: [
-          'This project is released under the GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later).',
-          'Contributions upstream are accepted only if they are provided under the same license terms.',
+          'This project is released under the MIT License.',
           'The complete license text is available in the repository at LICENSE.',
         ],
       },
@@ -207,8 +206,7 @@ export const TERMS_COPY: Record<Language, LegalPageCopy> = {
       {
         heading: '12. ライセンス',
         body: [
-          '本プロジェクトは GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later) の下で提供されています。',
-          'プロジェクトへのコントリビューションは同一のライセンス条件で公開されることに同意したものとみなします。',
+          '本プロジェクトは MIT ライセンスの下で提供されています。',
           'ライセンス全文はリポジトリ内の LICENSE ファイルで確認できます。',
         ],
       },
@@ -415,7 +413,7 @@ export const COMMERCE_COPY: Record<Language, LegalPageCopy> = {
         heading: 'Open Source Notices',
         body: [
           'Source code, licensing terms, and contributor guidelines are available in the public repository.',
-          'License: GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later).',
+          'License: MIT License.',
           `Repository URL: ${PROJECT_REPO}`,
         ],
       },
@@ -480,7 +478,7 @@ export const COMMERCE_COPY: Record<Language, LegalPageCopy> = {
         heading: 'オープンソース表記',
         body: [
           'ソースコード、ライセンス、コントリビューションガイドラインは公開リポジトリで確認できます。',
-          'ライセンス: GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later)。',
+          'ライセンス: MIT ライセンス。',
           `リポジトリURL: ${PROJECT_REPO}`,
         ],
       },

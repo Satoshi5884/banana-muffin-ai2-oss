@@ -2,7 +2,7 @@
 
 An open source AI image generation application with administrator-controlled access. Built with React, Firebase, and integrated with Google Gemini and fal.ai for high-quality image generation.
 
-![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![React](https://img.shields.io/badge/react-19.x-blue.svg)
 ![TypeScript](https://img.shields.io/badge/typescript-5.x-blue.svg)
 
@@ -206,7 +206,7 @@ docker run -p 3000:3000 banana-muffin-ai-oss
 
 ## 📄 License
 
-Banana-muffin AI OSS is licensed under the GNU Affero General Public License v3.0 or later. See the [LICENSE](LICENSE) file for the full text. Contributions are accepted only if they are provided under the same license terms.
+Banana-muffin AI OSS is licensed under the MIT License. See the [LICENSE](LICENSE) file for the full text.
 
 ## 🙏 Acknowledgments
 
@@ -241,7 +241,7 @@ Banana-muffin AI OSS is licensed under the GNU Affero General Public License v3.
 
 管理者がアクセスを制御できるオープンソースのAI画像生成アプリケーションです。ReactとFirebaseを基盤に、Google Geminiとfal.aiを連携させて高品質な画像生成を提供します。
 
-![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![React](https://img.shields.io/badge/react-19.x-blue.svg)
 ![TypeScript](https://img.shields.io/badge/typescript-5.x-blue.svg)
 
@@ -445,7 +445,7 @@ docker run -p 3000:3000 banana-muffin-ai-oss
 
 ## 📄 ライセンス
 
-Banana-muffin AI OSS は GNU Affero General Public License v3.0 以降でライセンスされています。詳細は [LICENSE](LICENSE) を参照してください。コントリビューションは同一ライセンス条件でのみ受け付けます。
+Banana-muffin AI OSS は MIT ライセンスでライセンスされています。詳細は [LICENSE](LICENSE) を参照してください。
 
 ## 🙏 謝辞
 

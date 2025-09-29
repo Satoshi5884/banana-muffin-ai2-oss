@@ -12,7 +12,7 @@ const FOOTER_COPY: Record<Language, {
   commerceLabel: string
 }> = {
   en: {
-    licenseLabel: 'GNU AGPL v3.0-or-later',
+    licenseLabel: 'MIT License',
     githubLabel: 'GitHub',
     helpfulLinksLabel: 'Helpful Links',
     termsLabel: 'Terms of Use',
@@ -20,7 +20,7 @@ const FOOTER_COPY: Record<Language, {
     commerceLabel: 'Legal Information',
   },
   ja: {
-    licenseLabel: 'GNU AGPL v3.0以降',
+    licenseLabel: 'MIT ライセンス',
     githubLabel: 'GitHub',
     helpfulLinksLabel: '関連リンク',
     termsLabel: '利用規約',
