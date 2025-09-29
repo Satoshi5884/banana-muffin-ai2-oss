@@ -1,0 +1,18 @@
+[
+  {
+    "origin": [
+      "http://localhost:5173",
+      "http://127.0.0.1:5173",
+      "https://banana-muffin-324a7.web.app",
+      "https://banana-muffin-324a7.firebaseapp.com",
+      "https://banana-muffin-ai2.netlify.app"
+    ],
+    "method": ["GET", "HEAD", "OPTIONS"],
+    "responseHeader": [
+      "Content-Type",
+      "x-goog-meta-*",
+      "Authorization"
+    ],
+    "maxAgeSeconds": 3600
+  }
+]

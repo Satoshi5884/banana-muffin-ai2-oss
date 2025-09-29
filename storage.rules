@@ -1,0 +1,47 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // ユーザーの画像フォルダ: 認証済みユーザーなら自分のファイルのみアクセス可能（ロールチェックはクライアント側で実装）
+    match /users/{userId}/images/{imageId} {
+      // 読み取り: 認証済み＆自分のファイル
+      allow read: if request.auth != null && request.auth.uid == userId;
+      
+      // 書き込み: 認証済み＆自分のファイル＆ファイルサイズ制限
+      allow write: if request.auth != null && 
+        request.auth.uid == userId &&
+        request.resource.size < 10 * 1024 * 1024 && // 10MB上限
+        request.resource.contentType.matches('image/.*'); // 画像ファイルのみ
+      
+      // 削除: 認証済み＆自分のファイル
+      allow delete: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /users/{userId}/videos/{videoId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+
+      allow write: if request.auth != null &&
+        request.auth.uid == userId &&
+        request.resource.size < 200 * 1024 * 1024 && // 200MB 上限
+        request.resource.contentType.matches('video/.*');
+
+      allow delete: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /users/{userId}/models/{modelId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+
+      allow write: if request.auth != null &&
+        request.auth.uid == userId &&
+        request.resource.size < 200 * 1024 * 1024 && // 200MB 上限
+        (request.resource.contentType.matches('model/.*') ||
+          request.resource.contentType.matches('application/(octet-stream|x-glb)'));
+
+      allow delete: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // その他のパスは全てアクセス拒否
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

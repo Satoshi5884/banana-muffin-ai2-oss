@@ -1,0 +1,49 @@
+{
+  "name": "banana-muffin-ai-oss",
+  "private": false,
+  "version": "0.0.0",
+  "type": "module",
+  "license": "AGPL-3.0-or-later",
+  "homepage": "https://github.com/your-org/banana-muffin-ai-oss",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/banana-muffin-ai-oss.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/banana-muffin-ai-oss/issues"
+  },
+  "keywords": ["ai", "image-generation", "open-source", "react", "firebase", "gemini", "seedream"],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fal-ai/client": "^1.6.2",
+    "file-saver": "^2.0.5",
+    "firebase": "^12.2.1",
+    "firebase-admin": "^12.7.0",
+    "jszip": "^3.10.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^6.30.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@types/file-saver": "^2.0.7",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react-swc": "^4.0.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.33.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.14",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.39.1",
+    "vite": "^7.1.2"
+  }
+}

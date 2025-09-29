@@ -1,0 +1,86 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 管理者かどうかをチェックする関数
+    function isAdmin() {
+      return request.auth != null && 
+             exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // ユーザードキュメント
+    // - 管理者はフルアクセス
+    // - 本人は読み取り/作成/更新可だが、role（プラン）フィールドは変更不可（サーバのみ）
+    match /users/{userId} {
+      allow read: if request.auth != null && (request.auth.uid == userId || isAdmin());
+      allow create: if request.auth != null && request.auth.uid == userId &&
+        // 作成時のroleはfreeに限定（サーバが後で昇格）
+        request.resource.data.role == 'free';
+
+      // 管理者は常に更新可能
+      allow update, delete: if request.auth != null && isAdmin();
+
+      // 本人の更新はroleを変更しない場合のみ許可
+      allow update: if request.auth != null && request.auth.uid == userId &&
+        request.resource.data.role == resource.data.role;
+    }
+
+    // プロンプト履歴: 自分のプロンプトまたは管理者なら読み書き可能
+    match /prompts/{promptId} {
+      allow read, write: if request.auth != null && 
+        (request.auth.uid == resource.data.userId || isAdmin());
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId;
+    }
+
+    // Markdownドキュメント: 自分のドキュメントまたは管理者ならアクセス可能
+    match /markdownDocuments/{documentId} {
+      allow read, delete: if request.auth != null &&
+        (request.auth.uid == resource.data.userId || isAdmin());
+      allow update: if request.auth != null &&
+        (isAdmin() || (
+          request.auth.uid == resource.data.userId &&
+          request.resource.data.userId == resource.data.userId &&
+          request.resource.data.content is string &&
+          request.resource.data.createdAt == resource.data.createdAt &&
+          request.resource.data.updatedAt is timestamp
+        ));
+      allow create: if request.auth != null &&
+        request.auth.uid == request.resource.data.userId &&
+        request.resource.data.content is string &&
+        request.resource.data.createdAt is timestamp &&
+        request.resource.data.updatedAt is timestamp;
+    }
+
+    // 画像メタデータ: 自分の画像または管理者ならアクセス可能
+    match /images/{imageId} {
+      allow read, write, delete: if request.auth != null && 
+        (request.auth.uid == resource.data.userId || isAdmin());
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId &&
+        // ファイルサイズ制限（10MB以下）
+        request.resource.data.fileSize is int &&
+        request.resource.data.fileSize <= 10485760;
+    }
+
+    // 動画メタデータ: 自分の動画または管理者ならアクセス可能
+    match /videos/{videoId} {
+      allow read, write, delete: if request.auth != null &&
+        (request.auth.uid == resource.data.userId || isAdmin());
+      allow create: if request.auth != null &&
+        request.auth.uid == request.resource.data.userId &&
+        request.resource.data.fileSize is int &&
+        request.resource.data.fileSize <= 209715200; // 200MB 以下
+    }
+
+    // 3Dモデルのメタデータ
+    match /models/{modelId} {
+      allow read, write, delete: if request.auth != null &&
+        (request.auth.uid == resource.data.userId || isAdmin());
+      allow create: if request.auth != null &&
+        request.auth.uid == request.resource.data.userId &&
+        request.resource.data.fileSize is int &&
+        request.resource.data.fileSize <= 209715200; // 200MB 以下
+    }
+  }
+}
