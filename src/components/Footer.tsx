@@ -45,7 +45,7 @@ export default function Footer() {
             <span className="text-gray-500">© {new Date().getFullYear()}</span>
             <span className="text-gray-400">•</span>
             <a
-              href="https://github.com/Satoshi5884/processeln-oss/blob/main/LICENSE"
+              href="https://github.com/Satoshi5884/banana-muffin-ai2-oss/blob/main/LICENSE"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-gray-900"
@@ -57,7 +57,7 @@ export default function Footer() {
             <LanguageToggle size="sm" />
             <div className="flex items-center gap-4">
               <a
-                href="https://github.com/Satoshi5884/processeln-oss"
+                href="https://github.com/Satoshi5884/banana-muffin-ai2-oss"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gray-900"

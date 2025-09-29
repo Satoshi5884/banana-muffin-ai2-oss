@@ -52,8 +52,8 @@ An open source AI image generation application with administrator-controlled acc
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-org/banana-muffin-ai-oss.git
-   cd banana-muffin-ai-oss
+   git clone https://github.com/Satoshi5884/banana-muffin-ai2-oss.git
+   cd banana-muffin-ai2-oss
    ```
 
 2. **Install dependencies**
@@ -218,9 +218,9 @@ Banana-muffin AI OSS is licensed under the GNU Affero General Public License v3.
 
 ## 🐛 Issues & Support
 
-- **Bug Reports**: [GitHub Issues](https://github.com/your-org/banana-muffin-ai-oss/issues)
-- **Feature Requests**: [GitHub Discussions](https://github.com/your-org/banana-muffin-ai-oss/discussions)
-- **Documentation**: [Project Wiki](https://github.com/your-org/banana-muffin-ai-oss/wiki)
+- **Bug Reports**: [GitHub Issues](https://github.com/Satoshi5884/banana-muffin-ai2-oss/issues)
+- **Feature Requests**: [GitHub Discussions](https://github.com/Satoshi5884/banana-muffin-ai2-oss/discussions)
+- **Documentation**: [Project Wiki](https://github.com/Satoshi5884/banana-muffin-ai2-oss/wiki)
 
 ## 🗺 Roadmap
 
@@ -291,8 +291,8 @@ Banana-muffin AI OSS is licensed under the GNU Affero General Public License v3.
 
 1. **リポジトリをクローン**
    ```bash
-   git clone https://github.com/your-org/banana-muffin-ai-oss.git
-   cd banana-muffin-ai-oss
+   git clone https://github.com/Satoshi5884/banana-muffin-ai2-oss.git
+   cd banana-muffin-ai2-oss
    ```
 
 2. **依存関係をインストール**
@@ -457,9 +457,9 @@ Banana-muffin AI OSS は GNU Affero General Public License v3.0 以降でライ�
 
 ## 🐛 課題とサポート
 
-- **バグ報告**: [GitHub Issues](https://github.com/your-org/banana-muffin-ai-oss/issues)
-- **機能要望**: [GitHub Discussions](https://github.com/your-org/banana-muffin-ai-oss/discussions)
-- **ドキュメント**: [Project Wiki](https://github.com/your-org/banana-muffin-ai-oss/wiki)
+- **バグ報告**: [GitHub Issues](https://github.com/Satoshi5884/banana-muffin-ai2-oss/issues)
+- **機能要望**: [GitHub Discussions](https://github.com/Satoshi5884/banana-muffin-ai2-oss/discussions)
+- **ドキュメント**: [Project Wiki](https://github.com/Satoshi5884/banana-muffin-ai2-oss/wiki)
 
 ## 🗺 ロードマップ
 

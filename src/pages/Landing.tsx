@@ -171,12 +171,12 @@ const LANDING_COPY: Record<Language, LandingCopy> = {
         {
           type: 'external',
           label: 'Report Issues',
-          href: 'https://github.com/Satoshi5884/processeln-oss/issues',
+          href: 'https://github.com/Satoshi5884/banana-muffin-ai2-oss/issues',
         },
         {
           type: 'external',
           label: 'Contribute',
-          href: 'https://github.com/Satoshi5884/processeln-oss/blob/main/CONTRIBUTING.md',
+          href: 'https://github.com/Satoshi5884/banana-muffin-ai2-oss/blob/main/CONTRIBUTING.md',
         },
         {
           type: 'internal',
@@ -295,12 +295,12 @@ const LANDING_COPY: Record<Language, LandingCopy> = {
         {
           type: 'external',
           label: 'Issueを報告',
-          href: 'https://github.com/Satoshi5884/processeln-oss/issues',
+          href: 'https://github.com/Satoshi5884/banana-muffin-ai2-oss/issues',
         },
         {
           type: 'external',
           label: 'コントリビュート',
-          href: 'https://github.com/Satoshi5884/processeln-oss/blob/main/CONTRIBUTING.md',
+          href: 'https://github.com/Satoshi5884/banana-muffin-ai2-oss/blob/main/CONTRIBUTING.md',
         },
         {
           type: 'internal',
@@ -458,7 +458,7 @@ export default function LandingPage() {
                 </ul>
                 <div className="mt-6">
                   <a
-                    href="https://github.com/Satoshi5884/processeln-oss"
+                    href="https://github.com/Satoshi5884/banana-muffin-ai2-oss"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block w-full text-center px-4 py-2 rounded-md bg-green-600 text-white hover:bg-green-700"

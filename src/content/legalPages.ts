@@ -1,8 +1,8 @@
 import type { Language } from '../contexts/LanguageContext'
 
 const LAST_UPDATED = '2025-02-15'
-const ISSUES_URL = 'https://github.com/Satoshi5884/processeln-oss/issues'
-const PROJECT_REPO = 'https://github.com/Satoshi5884/processeln-oss'
+const ISSUES_URL = 'https://github.com/Satoshi5884/banana-muffin-ai2-oss/issues'
+const PROJECT_REPO = 'https://github.com/Satoshi5884/banana-muffin-ai2-oss'
 
 export interface LegalSection {
   heading: string

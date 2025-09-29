@@ -34,8 +34,8 @@ Thank you for your interest in contributing to Banana-muffin AI OSS! This projec
 
 1. **Fork and clone the repository**
    ```bash
-   git clone https://github.com/your-username/banana-muffin-ai-oss.git
-   cd banana-muffin-ai-oss
+   git clone https://github.com/Satoshi5884/banana-muffin-ai2-oss.git
+   cd banana-muffin-ai2-oss
    ```
 
 2. **Install dependencies**
