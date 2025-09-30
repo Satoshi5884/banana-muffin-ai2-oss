@@ -19,10 +19,13 @@ import {
 import { storage, db } from '../config/firebase'
 
 // Generate tags and comments with AI
+export type TagCommentLanguage = 'en' | 'ja'
+
 export const generateImageTagsAndComment = async (
   apiKey: string,
   imageDataUrl: string,
-  prompt?: string
+  prompt?: string,
+  language: TagCommentLanguage = 'en'
 ): Promise<{ tags: string[]; comment: string }> => {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent`
   
@@ -32,20 +35,40 @@ export const generateImageTagsAndComment = async (
   const analysisPrompt = prompt 
     ? `Analyze this image, taking into account the generation prompt "${prompt}".`
     : `Analyze this image and describe its key characteristics.`
+
+  const isJapanese = language === 'ja'
+  const languageLabel = isJapanese ? 'Japanese' : 'English'
+  const commentInstruction = isJapanese
+    ? 'Write the comment in Japanese, summarising the most important details in about two sentences.'
+    : 'Write the comment in English, summarising the most important details in about two sentences.'
+  const tagsInstruction = isJapanese
+    ? 'Provide five Japanese keywords that describe the subject, style, colors, or mood of the image.'
+    : 'Provide five English keywords that describe the subject, style, colors, or mood of the image.'
+  const sampleComment = isJapanese
+    ? 'シーンの中心的な要素を2文程度で要約した日本語コメント'
+    : 'Concise English description (around 2 sentences)'
+  const fallbackTags = isJapanese
+    ? ['AI生成', '画像', 'アート', 'デジタル', 'クリエイティブ']
+    : ['AI-generated', 'image', 'art', 'digital', 'creative']
+  const fallbackComment = isJapanese
+    ? 'AIが生成した画像です。'
+    : 'AI-generated image.'
   
   const requestBody = {
     contents: [{
       parts: [
         { text: `${analysisPrompt}
 
+Respond in ${languageLabel}.
+
 Return a JSON response using the following format:
 {
   "tags": ["tag1", "tag2", "tag3", "tag4", "tag5"],
-  "comment": "Concise English description (around 2 sentences)"
+  "comment": "${sampleComment}"
 }
 
-Provide five English keywords that describe the subject, style, colors, or mood of the image.
-Write the comment in English, summarising the most important details.` },
+${tagsInstruction}
+${commentInstruction}` },
         { inlineData: { mimeType, data: base64 } }
       ]
     }],
@@ -75,8 +98,8 @@ Write the comment in English, summarising the most important details.` },
       if (jsonMatch) {
         const parsed = JSON.parse(jsonMatch[0])
         return {
-          tags: parsed.tags || [],
-          comment: parsed.comment || ''
+          tags: Array.isArray(parsed.tags) && parsed.tags.length > 0 ? parsed.tags : fallbackTags,
+          comment: typeof parsed.comment === 'string' && parsed.comment.trim() ? parsed.comment : fallbackComment
         }
       }
     } catch (parseError) {
@@ -85,14 +108,14 @@ Write the comment in English, summarising the most important details.` },
 
     // Fallback: default tags and comment
     return {
-      tags: ['AI-generated', 'image', 'art', 'digital', 'creative'],
-      comment: 'AI-generated image.'
+      tags: fallbackTags,
+      comment: fallbackComment
     }
   } catch (error) {
     console.error('Tag and comment generation failed:', error)
     return {
-      tags: ['AI-generated', 'image'],
-      comment: 'AI-generated image.'
+      tags: fallbackTags.slice(0, 2),
+      comment: fallbackComment
     }
   }
 }

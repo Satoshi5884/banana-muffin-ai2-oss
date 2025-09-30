@@ -1,12 +1,15 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { 
   uploadImageToStorage, 
   canUploadFile, 
   generateImageTagsAndComment
 } from '../lib/storage'
+import type { TagCommentLanguage } from '../lib/storage'
 import { saveAs } from 'file-saver'
 import ImageCropModal from './ImageCropModal'
+
+const AI_COMMENT_LANGUAGE_STORAGE_KEY = 'ai-comment-language-preference'
 
 interface Props {
   image: { dataUrl: string; blob: Blob; mime: string }
@@ -28,7 +31,26 @@ export default function ImageSaveOptions({
   const [generating, setGenerating] = useState(false)
   const [uploadStatus, setUploadStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [showCropModal, setShowCropModal] = useState(false)
+  const [aiCommentLanguage, setAiCommentLanguage] = useState<TagCommentLanguage>('en')
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY as string
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const storedLanguage = window.localStorage.getItem(AI_COMMENT_LANGUAGE_STORAGE_KEY)
+    if (storedLanguage === 'en' || storedLanguage === 'ja') {
+      setAiCommentLanguage(storedLanguage)
+    }
+  }, [])
+
+  const handleAiLanguageChange = (value: TagCommentLanguage) => {
+    setAiCommentLanguage(value)
+    if (typeof window === 'undefined') return
+    try {
+      window.localStorage.setItem(AI_COMMENT_LANGUAGE_STORAGE_KEY, value)
+    } catch (error) {
+      console.warn('Failed to persist AI comment language preference', error)
+    }
+  }
 
   const handleLocalSave = () => {
     const fileName = `gemini-image-${Date.now()}-${index + 1}.png`
@@ -156,7 +178,8 @@ export default function ImageSaveOptions({
       const { tags, comment } = await generateImageTagsAndComment(
         apiKey,
         image.dataUrl,
-        prompt
+        prompt,
+        aiCommentLanguage
       )
 
       const fileName = `gemini-image-${Date.now()}-${index + 1}.png`
@@ -178,7 +201,10 @@ export default function ImageSaveOptions({
       setUploadStatus('success')
       onUploadSuccess?.()
       
-      alert(`✨ Enhanced save completed!\n📝 Comment: ${comment}\n🏷️ Tags: ${tags.join(', ')}`)
+      const successTitle = aiCommentLanguage === 'ja' ? '✨ 保存が完了しました！' : '✨ Enhanced save completed!'
+      const commentLabel = aiCommentLanguage === 'ja' ? '📝 コメント' : '📝 Comment'
+      const tagsLabel = aiCommentLanguage === 'ja' ? '🏷️ タグ' : '🏷️ Tags'
+      alert(`${successTitle}\n${commentLabel}: ${comment}\n${tagsLabel}: ${tags.join(', ')}`)
       setTimeout(() => setUploadStatus('idle'), 3000)
     } catch (error) {
       console.error('Enhanced save error:', error)
@@ -268,6 +294,17 @@ export default function ImageSaveOptions({
       {/* Enhanced save options for Pro/Admin */}
       {canUseStorage() && isProOrAdmin && (
         <div className="space-y-1">
+          <div className="flex items-center justify-between text-xs text-gray-600">
+            <span>AI Comment Language</span>
+            <select
+              value={aiCommentLanguage}
+              onChange={(event) => handleAiLanguageChange(event.target.value as TagCommentLanguage)}
+              className="ml-2 rounded border border-gray-300 bg-white px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-purple-400"
+            >
+              <option value="en">English</option>
+              <option value="ja">日本語</option>
+            </select>
+          </div>
           <button
             onClick={handleCloudSave}
             disabled={uploading || generating}
