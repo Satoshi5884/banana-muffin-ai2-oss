@@ -6,6 +6,14 @@ An open source AI image generation application with administrator-controlled acc
 ![React](https://img.shields.io/badge/react-19.x-blue.svg)
 ![TypeScript](https://img.shields.io/badge/typescript-5.x-blue.svg)
 
+## 📺 Demo & Tutorial
+
+Watch our comprehensive tutorial video to learn how to set up and use Banana-muffin AI:
+
+[![Banana-muffin AI Tutorial](https://img.youtube.com/vi/TZWajTzyGlk/maxresdefault.jpg)](https://youtu.be/TZWajTzyGlk)
+
+[▶️ Watch on YouTube](https://youtu.be/TZWajTzyGlk)
+
 ## ✨ Features
 
 ### 🎨 AI Image Generation
@@ -244,6 +252,14 @@ Banana-muffin AI OSS is licensed under the MIT License. See the [LICENSE](LICENS
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![React](https://img.shields.io/badge/react-19.x-blue.svg)
 ![TypeScript](https://img.shields.io/badge/typescript-5.x-blue.svg)
+
+## 📺 デモ＆チュートリアル
+
+Banana-muffin AI のセットアップと使い方を学ぶための包括的なチュートリアル動画をご覧ください：
+
+[![Banana-muffin AI チュートリアル](https://img.youtube.com/vi/TZWajTzyGlk/maxresdefault.jpg)](https://youtu.be/TZWajTzyGlk)
+
+[▶️ YouTubeで視聴](https://youtu.be/TZWajTzyGlk)
 
 ## ✨ 特長
 

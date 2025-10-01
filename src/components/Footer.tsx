@@ -6,6 +6,7 @@ import type { Language } from '../contexts/LanguageContext'
 const FOOTER_COPY: Record<Language, {
   licenseLabel: string
   githubLabel: string
+  helpLabel: string
   helpfulLinksLabel: string
   termsLabel: string
   privacyLabel: string
@@ -14,6 +15,7 @@ const FOOTER_COPY: Record<Language, {
   en: {
     licenseLabel: 'MIT License',
     githubLabel: 'GitHub',
+    helpLabel: 'Help',
     helpfulLinksLabel: 'Helpful Links',
     termsLabel: 'Terms of Use',
     privacyLabel: 'Privacy Policy',
@@ -22,6 +24,7 @@ const FOOTER_COPY: Record<Language, {
   ja: {
     licenseLabel: 'MIT ライセンス',
     githubLabel: 'GitHub',
+    helpLabel: 'ヘルプ',
     helpfulLinksLabel: '関連リンク',
     termsLabel: '利用規約',
     privacyLabel: 'プライバシーポリシー',
@@ -64,6 +67,10 @@ export default function Footer() {
               >
                 {copy.githubLabel}
               </a>
+              <span className="hidden sm:inline text-gray-300">|</span>
+              <Link to="/help" className="hover:text-gray-900">
+                {copy.helpLabel}
+              </Link>
               <span className="hidden sm:inline text-gray-300">|</span>
               <Link to="/links" className="hover:text-gray-900">
                 {copy.helpfulLinksLabel}

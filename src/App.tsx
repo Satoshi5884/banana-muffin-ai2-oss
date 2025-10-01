@@ -44,6 +44,7 @@ import PrivacyPage from './pages/Privacy'
 import CommercePage from './pages/Commerce'
 import SettingsPage from './pages/Settings'
 import LinksPage from './pages/Links'
+import HelpPage from './pages/Help'
 import Footer from './components/Footer'
 
 function AppContent() {
@@ -684,6 +685,12 @@ function AppContent() {
                     Admin Panel
                   </button>
                 )}
+                <Link
+                  to="/help"
+                  className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200"
+                >
+                  Help
+                </Link>
                 {user && (
                   <Link
                     to="/settings"
@@ -923,6 +930,7 @@ export default function App() {
               <Route path="/commerce" element={<CommercePage />} />
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="/links" element={<LinksPage />} />
+              <Route path="/help" element={<HelpPage />} />
             </Routes>
           </div>
           <Footer />
